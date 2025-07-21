@@ -5,14 +5,13 @@ namespace AdamStipak;
 
 use Nette\Http\Request;
 use Nette\Http\UrlScript;
-use Nette\Reflection\Method;
 use PHPUnit\Framework\TestCase;
 
 class FormatDetectorTest extends TestCase
 {
     private function runDetectFormatMethod($route, $request): string
     {
-        $method = new Method($route, 'detectFormat');
+        $method = new \ReflectionMethod($route, 'detectFormat');
         $method->setAccessible(true);
         return $method->invoke($route, $request);
     }
