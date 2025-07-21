@@ -134,6 +134,8 @@ class RestRouteTest extends TestCase
             ['POST', '/foo', 'create'],
             ['GET', '/foo', 'readAll'],
             ['GET', '/foo/1', 'read', 1],
+            ['HEAD', '/foo', 'readAll'],
+            ['HEAD', '/foo/1', 'read', 1],
             ['PATCH', '/foo', 'partialUpdate'],
             ['PUT', '/foo', 'update'],
             ['DELETE', '/foo', 'delete'],

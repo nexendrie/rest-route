@@ -33,6 +33,7 @@ class ActionDetectorTest extends TestCase
         return [
             ['POST', 'create'],
             ['GET', 'readAll'],
+            ['HEAD', 'readAll'],
             ['PATCH', 'partialUpdate'],
             ['PUT', 'update'],
             ['DELETE', 'delete'],

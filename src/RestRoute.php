@@ -174,6 +174,7 @@ class RestRoute implements \Nette\Routing\Router
 
         switch ($method) {
             case 'GET':
+            case 'HEAD':
                 return 'read';
             case 'POST':
                 return 'create';
