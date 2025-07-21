@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class ConstructUrlTest extends TestCase
 {
-    public function testNoModuleNoAssociations()
+    public function testNoModuleNoAssociations(): void
     {
         $route = new RestRoute();
         $params = [
@@ -24,7 +24,7 @@ class ConstructUrlTest extends TestCase
         $this->assertEquals($expectedUrl, $url);
     }
 
-    public function testWithModuleNoAssociations()
+    public function testWithModuleNoAssociations(): void
     {
         $route = new RestRoute('Api');
         $params = [
@@ -40,7 +40,7 @@ class ConstructUrlTest extends TestCase
         $this->assertEquals($expectedUrl, $url);
     }
 
-    public function createAssociations()
+    public function createAssociations(): array
     {
         return [
             [
@@ -76,7 +76,7 @@ class ConstructUrlTest extends TestCase
     /**
      * @dataProvider createAssociations
      */
-    public function testWithModuleAndAssociations($associations, $result)
+    public function testWithModuleAndAssociations(array $associations, string $result): void
     {
         $route = new RestRoute('Api');
         $params = [
@@ -93,7 +93,7 @@ class ConstructUrlTest extends TestCase
         $this->assertEquals($expectedUrl, $url);
     }
 
-    public function testDefaultsWithBasePath()
+    public function testDefaultsWithBasePath(): void
     {
         $route = new RestRoute();
         $params = [
@@ -109,7 +109,7 @@ class ConstructUrlTest extends TestCase
         $this->assertEquals($expectedUrl, $url);
     }
 
-    public function testUrlOnSubdomain()
+    public function testUrlOnSubdomain(): void
     {
         $route = new RestRoute();
         $params = [
@@ -125,7 +125,7 @@ class ConstructUrlTest extends TestCase
         $this->assertEquals($expectedUrl, $url);
     }
 
-    public function testQueryParams()
+    public function testQueryParams(): void
     {
         $route = new RestRoute();
         $params = [

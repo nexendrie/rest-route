@@ -10,12 +10,12 @@ use PHPUnit\Framework\TestCase;
 class ActionDetectorTest extends TestCase
 {
     /**
-     * @param $method
-     * @param $action
+     * @param string $method
+     * @param string $action
      *
      * @dataProvider getActions
      */
-    public function testAction($method, $action)
+    public function testAction(string $method, string $action): void
     {
         $route = new RestRoute();
 
@@ -28,7 +28,7 @@ class ActionDetectorTest extends TestCase
         $this->assertEquals($action, $parameters[RestRoute::KEY_ACTION]);
     }
 
-    public function getActions()
+    public function getActions(): array
     {
         return [
             ['POST', 'create'],
@@ -40,7 +40,7 @@ class ActionDetectorTest extends TestCase
         ];
     }
 
-    public function getActionsForOverride()
+    public function getActionsForOverride(): array
     {
         return [
             ['PATCH', 'partialUpdate'],
