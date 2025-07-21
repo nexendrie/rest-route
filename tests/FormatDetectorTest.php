@@ -5,8 +5,9 @@ namespace AdamStipak;
 use Nette\Http\Request;
 use Nette\Http\UrlScript;
 use Nette\Reflection\Method;
+use PHPUnit\Framework\TestCase;
 
-class FormatDetectorTest extends \PHPUnit_Framework_TestCase {
+class FormatDetectorTest extends TestCase {
 
   private function runDetectFormatMethod($route, $request) {
     $method = new Method($route, 'detectFormat');

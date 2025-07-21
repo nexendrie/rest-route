@@ -4,21 +4,22 @@ namespace AdamStipak;
 
 use Nette\Http\UrlScript;
 use Nette\Http\Request;
+use PHPUnit\Framework\TestCase;
 
-class RestRouteTest extends \PHPUnit_Framework_TestCase {
+class RestRouteTest extends TestCase {
 
   public function testConstructorWithNoModule() {
-    $route = new RestRoute;
+    $route = new RestRoute();
+    $this->assertInstanceOf(RestRoute::class, $route);
   }
 
   public function testConstructorWithEmptyDefaultFormat() {
     $route = new RestRoute('Api');
+    $this->assertInstanceOf(RestRoute::class, $route);
   }
 
-  /**
-   * @expectedException \Nette\InvalidArgumentException
-   */
   public function testConstructorWithInvalidDefaultFormat() {
+    $this->expectException(\Nette\InvalidArgumentException::class);
     $route = new RestRoute('Api', 'invalid');
   }
 

@@ -4,8 +4,9 @@ namespace AdamStipak;
 
 use Nette\Http\UrlScript;
 use Nette\Http\Request;
+use PHPUnit\Framework\TestCase;
 
-class ActionDetectorTest extends \PHPUnit_Framework_TestCase {
+class ActionDetectorTest extends TestCase {
 
   /**
    * @param $method

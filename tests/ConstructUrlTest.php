@@ -3,8 +3,9 @@
 namespace AdamStipak;
 
 use Nette\Http\UrlScript;
+use PHPUnit\Framework\TestCase;
 
-class ConstructUrlTest extends \PHPUnit_Framework_TestCase {
+class ConstructUrlTest extends TestCase {
 
   public function testNoModuleNoAssociations() {
     $route = new RestRoute;
