@@ -9,25 +9,25 @@ use PHPUnit\Framework\TestCase;
 
 class RestRouteTest extends TestCase
 {
-    public function testConstructorWithNoModule()
+    public function testConstructorWithNoModule(): void
     {
         $route = new RestRoute();
         $this->assertInstanceOf(RestRoute::class, $route);
     }
 
-    public function testConstructorWithEmptyDefaultFormat()
+    public function testConstructorWithEmptyDefaultFormat(): void
     {
         $route = new RestRoute('Api');
         $this->assertInstanceOf(RestRoute::class, $route);
     }
 
-    public function testConstructorWithInvalidDefaultFormat()
+    public function testConstructorWithInvalidDefaultFormat(): void
     {
         $this->expectException(\Nette\InvalidArgumentException::class);
         $route = new RestRoute('Api', 'invalid');
     }
 
-    public function testConstructorWithXmlAsADefaultFormat()
+    public function testConstructorWithXmlAsADefaultFormat(): void
     {
         $route = new RestRoute('Api', 'xml');
 
@@ -35,7 +35,7 @@ class RestRouteTest extends TestCase
         $this->assertEquals('xml', $defaultFormat);
     }
 
-    public function testMatchAndConstructUrl()
+    public function testMatchAndConstructUrl(): void
     {
         $route = new RestRoute();
 
@@ -54,7 +54,7 @@ class RestRouteTest extends TestCase
         $this->assertEquals($expectedUrl, $url);
     }
 
-    public function testMatchAndConstructSpinalCaseUrlSingleResource()
+    public function testMatchAndConstructSpinalCaseUrlSingleResource(): void
     {
         $route = new RestRoute();
 
@@ -73,7 +73,7 @@ class RestRouteTest extends TestCase
         $this->assertEquals($expectedUrl, $url);
     }
 
-    public function testMatchAndConstructSpinalCaseUrlMultipleResource()
+    public function testMatchAndConstructSpinalCaseUrlMultipleResource(): void
     {
         $route = new RestRoute();
 
@@ -92,7 +92,7 @@ class RestRouteTest extends TestCase
         $this->assertEquals($expectedUrl, $url);
     }
 
-    public function testFileUpload()
+    public function testFileUpload(): void
     {
         $route = new RestRoute();
 
@@ -108,7 +108,7 @@ class RestRouteTest extends TestCase
     /**
      * @dataProvider getActions
      */
-    public function testDefault($method, $path, $action, $id = null, $associations = null)
+    public function testDefault($method, $path, $action, $id = null, $associations = null): void
     {
         $route = new RestRoute();
 
@@ -128,7 +128,7 @@ class RestRouteTest extends TestCase
         }
     }
 
-    public function getActions()
+    public function getActions(): array
     {
         return [
             ['POST', '/foo', 'create'],
@@ -144,7 +144,7 @@ class RestRouteTest extends TestCase
     /**
      * @dataProvider getVersions
      */
-    public function testModuleVersioning($module, $path, $expectedPresenterName, $expectedUrl)
+    public function testModuleVersioning($module, $path, $expectedPresenterName, $expectedUrl): void
     {
         $route = new RestRoute($module);
         $route->useURLModuleVersioning(
@@ -168,7 +168,7 @@ class RestRouteTest extends TestCase
         $this->assertEquals($expectedUrl, $url);
     }
 
-    public function getVersions()
+    public function getVersions(): array
     {
         return [
             [null, '/foo', 'V1:Foo', 'http://localhost/v1/foo'],

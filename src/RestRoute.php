@@ -36,31 +36,24 @@ class RestRoute implements \Nette\Routing\Router
 
     public const KEY_QUERY = 'query';
 
-    /** @var string */
-    protected $path;
+    protected string $path;
 
-    /** @var string */
-    protected $module;
+    protected ?string $module;
 
-    /** @var string */
-    protected $versionRegex;
+    protected string $versionRegex;
 
-    /** @var boolean */
-    protected $useURLModuleVersioning = false;
+    protected bool $useURLModuleVersioning = false;
 
-    /** @var array */
-    protected $versionToModuleMapping;
+    protected array $versionToModuleMapping;
 
-    /** @var array */
-    protected $formats = [
+    protected array $formats = [
         'json' => 'application/json',
         'xml' => 'application/xml',
     ];
 
-    /** @var string */
-    protected $defaultFormat;
+    protected string $defaultFormat;
 
-    public function __construct($module = null, $defaultFormat = 'json')
+    public function __construct(?string $module = null, string $defaultFormat = 'json')
     {
         if (!array_key_exists($defaultFormat, $this->formats)) {
             throw new InvalidArgumentException("Format '{$defaultFormat}' is not allowed.");
@@ -70,12 +63,7 @@ class RestRoute implements \Nette\Routing\Router
         $this->defaultFormat = $defaultFormat;
     }
 
-    /**
-     * @param string $versionRegex
-     * @param array $moduleMapping
-     * @return $this
-     */
-    public function useURLModuleVersioning($versionRegex, array $moduleMapping): self
+    public function useURLModuleVersioning(string $versionRegex, array $moduleMapping): self
     {
         $this->useURLModuleVersioning = true;
         $this->versionRegex = $versionRegex;
@@ -83,29 +71,21 @@ class RestRoute implements \Nette\Routing\Router
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getDefaultFormat(): string
     {
         return $this->defaultFormat;
     }
 
-    /**
-     * @return string
-     */
     public function getPath(): string
     {
-        $path = implode('/', explode(':', $this->module));
+        $path = implode('/', explode(':', (string) $this->module));
         $this->path = Strings::lower($path);
 
-        return (string) $this->path;
+        return $this->path;
     }
 
     /**
      * Maps HTTP request to a Request object.
-     * @param IRequest $httpRequest
-     * @return array|null
      */
     public function match(IRequest $httpRequest): ?array
     {
@@ -210,21 +190,12 @@ class RestRoute implements \Nette\Routing\Router
         }
     }
 
-    /**
-     * @param IRequest $request
-     *
-     * @return string
-     */
     protected function detectMethod(IRequest $request): string
     {
         return $request->getMethod();
     }
 
-    /**
-     * @param \Nette\Http\IRequest $request
-     * @return string
-     */
-    private function detectFormat(IRequest $request)
+    private function detectFormat(IRequest $request): string
     {
         $header = $request->getHeader('Accept'); // http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
         foreach ($this->formats as $format => $fullFormatName) {
@@ -247,7 +218,7 @@ class RestRoute implements \Nette\Routing\Router
     }
 
     /**
-     * @return string|boolean
+     * @return string|bool
      */
     protected function readInput()
     {
@@ -256,9 +227,6 @@ class RestRoute implements \Nette\Routing\Router
 
     /**
      * Constructs absolute URL from Request object.
-     * @param array $params
-     * @param UrlScript $refUrl
-     * @return string|null
      */
     public function constructUrl(array $params, UrlScript $refUrl): ?string
     {

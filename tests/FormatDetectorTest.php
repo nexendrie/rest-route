@@ -10,14 +10,14 @@ use PHPUnit\Framework\TestCase;
 
 class FormatDetectorTest extends TestCase
 {
-    private function runDetectFormatMethod($route, $request)
+    private function runDetectFormatMethod($route, $request): string
     {
         $method = new Method($route, 'detectFormat');
         $method->setAccessible(true);
         return $method->invoke($route, $request);
     }
 
-    public function testFormatJsonWithAcceptHeader()
+    public function testFormatJsonWithAcceptHeader(): void
     {
         $route = new RestRoute('Api');
 
@@ -28,7 +28,7 @@ class FormatDetectorTest extends TestCase
         $this->assertEquals('json', $format);
     }
 
-    public function testFormatXmlWithAcceptHeader()
+    public function testFormatXmlWithAcceptHeader(): void
     {
         $route = new RestRoute('Api');
 
@@ -39,7 +39,7 @@ class FormatDetectorTest extends TestCase
         $this->assertEquals('xml', $format);
     }
 
-    public function testDefaultFormatWithWildcardHeader()
+    public function testDefaultFormatWithWildcardHeader(): void
     {
         $route = new RestRoute('Api');
 
@@ -50,7 +50,7 @@ class FormatDetectorTest extends TestCase
         $this->assertEquals('json', $format);
     }
 
-    public function testJsonFormatWithFallbackInUrl()
+    public function testJsonFormatWithFallbackInUrl(): void
     {
         $route = new RestRoute('Api');
 
@@ -61,7 +61,7 @@ class FormatDetectorTest extends TestCase
         $this->assertEquals('json', $format);
     }
 
-    public function testXmlFormatWithFallbackInUrl()
+    public function testXmlFormatWithFallbackInUrl(): void
     {
         $route = new RestRoute('Api');
 
@@ -72,7 +72,7 @@ class FormatDetectorTest extends TestCase
         $this->assertEquals('xml', $format);
     }
 
-    public function testDefaultFormat()
+    public function testDefaultFormat(): void
     {
         $route = new RestRoute('Api');
 
