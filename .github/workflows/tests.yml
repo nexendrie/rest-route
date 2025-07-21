@@ -28,5 +28,5 @@ jobs:
                   tools: composer, phing
                   coverage: pcov
             - run: composer update --prefer-dist --no-progress --no-interaction
-            - run: vendor/bin/phpcs --standard=PSR1 src/ tests/
+            - run: vendor/bin/phpcs src/ tests/
             - run: vendor/bin/phpunit

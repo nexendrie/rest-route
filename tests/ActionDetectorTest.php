@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace AdamStipak;
 
@@ -6,42 +7,45 @@ use Nette\Http\UrlScript;
 use Nette\Http\Request;
 use PHPUnit\Framework\TestCase;
 
-class ActionDetectorTest extends TestCase {
+class ActionDetectorTest extends TestCase
+{
+    /**
+     * @param $method
+     * @param $action
+     *
+     * @dataProvider getActions
+     */
+    public function testAction($method, $action)
+    {
+        $route = new RestRoute();
 
-  /**
-   * @param $method
-   * @param $action
-   *
-   * @dataProvider getActions
-   */
-  public function testAction($method, $action) {
-    $route = new RestRoute();
+        $url = (new UrlScript())->withPath('/foo');
+        $request = new Request($url, null, null, null, null, $method);
 
-    $url = (new UrlScript())->withPath('/foo');
-    $request = new Request($url, NULL, NULL, NULL, NULL, $method);
+        $parameters = $route->match($request);
 
-    $parameters = $route->match($request);
+        $this->assertEquals('Foo', $parameters[RestRoute::KEY_PRESENTER]);
+        $this->assertEquals($action, $parameters[RestRoute::KEY_ACTION]);
+    }
 
-    $this->assertEquals('Foo', $parameters[RestRoute::KEY_PRESENTER]);
-    $this->assertEquals($action, $parameters[RestRoute::KEY_ACTION]);
-  }
+    public function getActions()
+    {
+        return [
+            ['POST', 'create'],
+            ['GET', 'readAll'],
+            ['PATCH', 'partialUpdate'],
+            ['PUT', 'update'],
+            ['DELETE', 'delete'],
+            ['OPTIONS', 'options'],
+        ];
+    }
 
-  public function getActions() {
-    return [
-      ['POST', 'create'],
-      ['GET', 'readAll'],
-      ['PATCH', 'partialUpdate'],
-      ['PUT', 'update'],
-      ['DELETE', 'delete'],
-      ['OPTIONS', 'options'],
-    ];
-  }
-
-  public function getActionsForOverride() {
-    return [
-      ['PATCH', 'partialUpdate'],
-      ['PUT', 'update'],
-      ['DELETE', 'delete'],
-    ];
-  }
+    public function getActionsForOverride()
+    {
+        return [
+            ['PATCH', 'partialUpdate'],
+            ['PUT', 'update'],
+            ['DELETE', 'delete'],
+        ];
+    }
 }
