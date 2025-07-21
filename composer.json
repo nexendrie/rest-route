@@ -1,9 +1,9 @@
 {
-  "name": "adam-stipak/nette-rest-route",
+  "name": "nexendrie/rest-route",
   "description": "Rest route for Nette Framework",
   "keywords": ["nette", "routing"],
   "license": "MIT",
-  "homepage": "https://github.com/newPOPE/Nette-RestRoute",
+  "homepage": "https://gitlab.com/nexendrie/rest-route",
   "authors": [
     {
       "name": "Adam Štipák",

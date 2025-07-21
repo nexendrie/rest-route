@@ -17,7 +17,7 @@ Variable ```$format``` is detected from HTTP header ```Accept```. If header is n
 The best way to install Nette-RestRoute is using  [Composer](http://getcomposer.org/):
 
 ```sh
-$ composer require adamstipak/nette-rest-route
+$ composer require nexendrie/rest-route
 ```
 
 ## Usage:
