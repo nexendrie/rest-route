@@ -20,7 +20,7 @@ class ActionDetectorTest extends TestCase
         $route = new RestRoute();
 
         $url = (new UrlScript())->withPath('/foo');
-        $request = new Request($url, null, null, null, null, $method);
+        $request = new Request($url, [], [], [], [], $method);
 
         $parameters = $route->match($request);
 

@@ -21,7 +21,7 @@ class FormatDetectorTest extends TestCase
         $route = new RestRoute('Api');
 
         $url = new UrlScript();
-        $request = new Request($url, null, null, null, ['accept' => 'application/json']);
+        $request = new Request($url, [], [], [], ['accept' => 'application/json']);
         $format = $this->runDetectFormatMethod($route, $request);
 
         $this->assertEquals('json', $format);
@@ -32,7 +32,7 @@ class FormatDetectorTest extends TestCase
         $route = new RestRoute('Api');
 
         $url = new UrlScript();
-        $request = new Request($url, null, null, null, ['accept' => 'application/xml']);
+        $request = new Request($url, [], [], [], ['accept' => 'application/xml']);
         $format = $this->runDetectFormatMethod($route, $request);
 
         $this->assertEquals('xml', $format);
@@ -43,7 +43,7 @@ class FormatDetectorTest extends TestCase
         $route = new RestRoute('Api');
 
         $url = new UrlScript();
-        $request = new Request($url, null, null, null, ['accept' => '*/*']);
+        $request = new Request($url, [], [], [], ['accept' => '*/*']);
         $format = $this->runDetectFormatMethod($route, $request);
 
         $this->assertEquals('json', $format);

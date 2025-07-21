@@ -43,7 +43,7 @@ class RestRouteTest extends TestCase
             ->withPath('/resource')
             ->withQuery(['access_token' => 'foo-bar']);
 
-        $request = new Request($url, null, null, null, null, 'GET');
+        $request = new Request($url, [], [], [], [], 'GET');
 
         $appRequest = $route->match($request);
 
@@ -60,7 +60,7 @@ class RestRouteTest extends TestCase
 
         $url = (new UrlScript('http://localhost'))->withPath('/re-source');
 
-        $request = new Request($url, null, null, null, null, 'GET');
+        $request = new Request($url, [], [], [], [], 'GET');
 
         $params = $route->match($request);
         $expectedPresenterName = 'ReSource';
@@ -79,7 +79,7 @@ class RestRouteTest extends TestCase
 
         $url = (new UrlScript('http://localhost'))->withPath('/first-level/123/second-level/456/re-source', '/');
 
-        $request = new Request($url, null, null, null, null, 'GET');
+        $request = new Request($url, [], [], [], [], 'GET');
 
         $params = $route->match($request);
         $expectedPresenterName = 'ReSource';
@@ -99,7 +99,7 @@ class RestRouteTest extends TestCase
         $url = (new UrlScript('http://localhost'))->withPath('/whatever');
         $files = ['file1', 'file2', 'file3'];
 
-        $request = new Request($url, null, $files, null, null, 'POST');
+        $request = new Request($url, [], $files, [], [], 'POST');
         $params = $route->match($request);
 
         $this->assertEquals($files, $params[RestRoute::KEY_FILES]);
@@ -119,7 +119,7 @@ class RestRouteTest extends TestCase
         $route = new RestRoute();
 
         $url = (new UrlScript())->withPath($path, '/');
-        $request = new Request($url, null, null, null, null, $method);
+        $request = new Request($url, [], [], [], [], $method);
 
         $params = $route->match($request);
 
@@ -172,7 +172,7 @@ class RestRouteTest extends TestCase
         );
 
         $url = (new UrlScript())->withPath($path, '/');
-        $request = new Request($url, null, null, null, null, 'GET');
+        $request = new Request($url, [], [], [], [], 'GET');
 
         $params = $route->match($request);
 

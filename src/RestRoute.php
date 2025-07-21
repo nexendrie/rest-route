@@ -172,7 +172,7 @@ class RestRoute implements \Nette\Routing\Router
             self::KEY_METHOD => $httpRequest->getMethod(),
             self::KEY_POST => $httpRequest->getPost(),
             self::KEY_FILES => $httpRequest->getFiles(),
-            Request::SECURED => $httpRequest->isSecured()
+            'secured' => $httpRequest->isSecured()
         ];
 
         return array_merge($returnArray, $params);
