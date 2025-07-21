@@ -44,8 +44,14 @@ class RestRoute implements \Nette\Routing\Router
 
     protected bool $useURLModuleVersioning = false;
 
+    /**
+     * @var array<string|null, string>
+     */
     protected array $versionToModuleMapping;
 
+    /**
+     * @var array<string, string>
+     */
     protected array $formats = [
         'json' => 'application/json',
         'xml' => 'application/xml',
@@ -63,6 +69,9 @@ class RestRoute implements \Nette\Routing\Router
         $this->defaultFormat = $defaultFormat;
     }
 
+    /**
+     * @param array<string|null, string> $moduleMapping
+     */
     public function useURLModuleVersioning(string $versionRegex, array $moduleMapping): self
     {
         $this->useURLModuleVersioning = true;
@@ -86,6 +95,7 @@ class RestRoute implements \Nette\Routing\Router
 
     /**
      * Maps HTTP request to a Request object.
+     * @return array{presenter: string, action: string|null, method: string, post: mixed[], files: mixed[], secured: bool, id?: string|null, format: string, associations: array<string, mixed>, data: bool|string, query: mixed[]}
      */
     public function match(IRequest $httpRequest): ?array
     {
@@ -228,6 +238,7 @@ class RestRoute implements \Nette\Routing\Router
 
     /**
      * Constructs absolute URL from Request object.
+     * @param array{presenter: string, method: string, id?: int|string|null, associations?: array<string, mixed>, query?: mixed[]} $params
      */
     public function constructUrl(array $params, UrlScript $refUrl): ?string
     {

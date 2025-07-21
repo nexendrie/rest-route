@@ -107,9 +107,15 @@ class RestRouteTest extends TestCase
 
     /**
      * @dataProvider getActions
+     * @param mixed[]|null $associations
      */
-    public function testDefault($method, $path, $action, $id = null, $associations = null): void
-    {
+    public function testDefault(
+        string $method,
+        string $path,
+        string $action,
+        ?int $id = null,
+        ?array $associations = null
+    ): void {
         $route = new RestRoute();
 
         $url = (new UrlScript())->withPath($path, '/');
@@ -121,13 +127,16 @@ class RestRouteTest extends TestCase
         $this->assertEquals($action, $params[RestRoute::KEY_ACTION]);
 
         if ($id) {
-            $this->assertEquals($id, $params['id']);
+            $this->assertEquals($id, $params['id']); // @phpstan-ignore offsetAccess.notFound
         }
         if ($associations) {
             $this->assertSame($associations, $params[RestRoute::KEY_ASSOCIATIONS]);
         }
     }
 
+    /**
+     * @return array<int, array{0: string, 1: string, 2: string, 3?: int}>
+     */
     public function getActions(): array
     {
         return [
@@ -146,8 +155,12 @@ class RestRouteTest extends TestCase
     /**
      * @dataProvider getVersions
      */
-    public function testModuleVersioning($module, $path, $expectedPresenterName, $expectedUrl): void
-    {
+    public function testModuleVersioning(
+        ?string $module,
+        string $path,
+        string $expectedPresenterName,
+        string $expectedUrl
+    ): void {
         $route = new RestRoute($module);
         $route->useURLModuleVersioning(
             RestRoute::MODULE_VERSION_PATH_PREFIX_PATTERN,
@@ -170,6 +183,9 @@ class RestRouteTest extends TestCase
         $this->assertEquals($expectedUrl, $url);
     }
 
+    /**
+     * @return array<int, array{0: string|null, 1: string, 2: string, 3: string}>
+     */
     public function getVersions(): array
     {
         return [

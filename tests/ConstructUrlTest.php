@@ -40,6 +40,9 @@ class ConstructUrlTest extends TestCase
         $this->assertEquals($expectedUrl, $url);
     }
 
+    /**
+     * @return array<int, array{associations: array<string, mixed>, result: string}>
+     */
     public function createAssociations(): array
     {
         return [
@@ -75,6 +78,7 @@ class ConstructUrlTest extends TestCase
 
     /**
      * @dataProvider createAssociations
+     * @param array<string, mixed> $associations
      */
     public function testWithModuleAndAssociations(array $associations, string $result): void
     {

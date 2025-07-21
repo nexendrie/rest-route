@@ -28,6 +28,9 @@ class ActionDetectorTest extends TestCase
         $this->assertEquals($action, $parameters[RestRoute::KEY_ACTION]);
     }
 
+    /**
+     * @return array<int, array{0: string, 1: string}>
+     */
     public function getActions(): array
     {
         return [
@@ -41,6 +44,9 @@ class ActionDetectorTest extends TestCase
         ];
     }
 
+    /**
+     * @return array<int, array{0: string, 1: string}>
+     */
     public function getActionsForOverride(): array
     {
         return [

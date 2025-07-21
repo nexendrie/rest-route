@@ -49,6 +49,7 @@ test:reports:
         - composer install --no-interaction --prefer-dist --no-progress
     script:
         - vendor/bin/phpunit --coverage-text --coverage-filter src --colors=never --log-junit junit.xml
+        - vendor/bin/phpstan analyze
     coverage: '/^\s*Lines:\s*\d+.\d+\%/'
     artifacts:
         paths:

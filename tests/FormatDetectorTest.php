@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class FormatDetectorTest extends TestCase
 {
-    private function runDetectFormatMethod($route, $request): string
+    private function runDetectFormatMethod(RestRoute $route, Request $request): string
     {
         $method = new \ReflectionMethod($route, 'detectFormat');
         $method->setAccessible(true);
