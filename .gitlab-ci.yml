@@ -42,6 +42,25 @@ test:php8.4:
     <<: *test_job
     image: nexendrie/php:8.4
 
+test:reports:
+    stage: test
+    image: nexendrie/php:8.4
+    before_script:
+        - composer install --no-interaction --prefer-dist --no-progress
+    script:
+        - vendor/bin/phpunit --coverage-text --coverage-filter src --colors=never --log-junit junit.xml
+    coverage: '/^\s*Lines:\s*\d+.\d+\%/'
+    artifacts:
+        paths:
+            - junit.xml
+        reports:
+            junit: junit.xml
+    cache:
+        paths:
+            - vendor/
+    rules:
+        - if: $CI_COMMIT_BRANCH
+
 announce:gitlab:
     stage: announce
     image: registry.gitlab.com/gitlab-org/release-cli:latest
