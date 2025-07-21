@@ -1,5 +1,6 @@
 # REST route for [Nette Framework](http://nette.org) 
-[![Build Status](https://travis-ci.org/newPOPE/Nette-RestRoute.png)](https://travis-ci.org/newPOPE/Nette-RestRoute)
+
+[![Total Downloads](https://poser.pugx.org/nexendrie/rest-route/downloads)](https://packagist.org/packages/nexendrie/rest-route) [![Latest Stable Version](https://poser.pugx.org/nexendrie/rest-route/v/stable)](https://gitlab.com/nexendrie/rest-route/-/releases) [![build status](https://gitlab.com/nexendrie/rest-route/badges/master/pipeline.svg?ignore_skipped=true)](https://gitlab.com/nexendrie/rest-route/-/commits/master) [![coverage report](https://gitlab.com/nexendrie/rest-route/badges/master/coverage.svg)](https://gitlab.com/nexendrie/rest-route/-/commits/master) [![License](https://poser.pugx.org/nexendrie/rest-route/license)](https://gitlab.com/nexendrie/rest-route/-/blob/master/LICENSE.md)
 
 Route automatically maps CRUD to Presenters and actions in the defined module.
 And creates parameters which are accessible in Presenter.  

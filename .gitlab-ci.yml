@@ -1,0 +1,47 @@
+include:
+    -   template: Jobs/Secret-Detection.gitlab-ci.yml
+
+stages:
+    - test
+    - announce
+
+.job_template: &test_job
+    stage: test
+    before_script:
+        - composer install --no-interaction --prefer-dist --no-progress
+    script:
+        - vendor/bin/phpcs --standard=PSR1 src/ tests/
+        - vendor/bin/phpunit
+    cache:
+        paths:
+            - vendor/
+    rules:
+        - if: $CI_COMMIT_BRANCH
+
+test:php7.1:
+    <<: *test_job
+    image: nexendrie/php:7.1
+
+test:php7.2:
+    <<: *test_job
+    image: nexendrie/php:7.2
+
+test:php7.3:
+    <<: *test_job
+    image: nexendrie/php:7.3
+
+test:php7.4:
+    <<: *test_job
+    image: nexendrie/php:7.4
+
+announce:gitlab:
+    stage: announce
+    image: registry.gitlab.com/gitlab-org/release-cli:latest
+    rules:
+        - if: $CI_COMMIT_TAG
+    script:
+        - echo "Creating GitLab release"
+    release:
+        tag_name: $CI_COMMIT_TAG
+        name: "Rest Route $CI_COMMIT_TAG"
+        description: "./RELEASE_NOTES"
