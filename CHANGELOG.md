@@ -1,4 +1,4 @@
-Version 5.0.0-dev
+Version 5.0.0
 - package renamed to nexendrie/rest-route, changed namespace to Nexendrie\RestRoute
 - allowed PHP 8
 - raised minimal version of PHP to 7.4
