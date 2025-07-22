@@ -8,20 +8,14 @@ use Nette\Http\UrlScript;
 use Nette\InvalidArgumentException;
 use Nette\Http\IRequest;
 use Nette\InvalidStateException;
-use Nette\SmartObject;
 use Nette\Utils\Strings;
 use Nette\Utils\Validators;
 
 /**
  * @author Adam Štipák <adam.stipak@gmail.com>
- * @property-read string $defaultFormat
- * @property-read string $path
- * @property-read string $module
  */
 class RestRoute implements \Nette\Routing\Router
 {
-    use SmartObject;
-
     public const MODULE_VERSION_PATH_PREFIX_PATTERN = '/v[0-9\.]+/';
 
     public const KEY_PRESENTER = 'presenter';
@@ -38,9 +32,9 @@ class RestRoute implements \Nette\Routing\Router
 
     public const KEY_QUERY = 'query';
 
-    private string $path;
+    public readonly string $path;
 
-    private ?string $module;
+    public readonly ?string $module;
 
     protected string $versionRegex;
 
@@ -59,7 +53,7 @@ class RestRoute implements \Nette\Routing\Router
         'xml' => 'application/xml',
     ];
 
-    private string $defaultFormat;
+    public readonly string $defaultFormat;
 
     public function __construct(?string $module = null, string $defaultFormat = 'json')
     {
@@ -85,30 +79,6 @@ class RestRoute implements \Nette\Routing\Router
     }
 
     /**
-     * @internal Access the property directly
-     */
-    protected function getDefaultFormat(): string
-    {
-        return $this->defaultFormat;
-    }
-
-    /**
-     * @internal Access the property directly
-     */
-    protected function getPath(): string
-    {
-        return $this->path;
-    }
-
-    /**
-     * @internal Access the property directly
-     */
-    protected function getModule(): ?string
-    {
-        return $this->module;
-    }
-
-    /**
      * Maps HTTP request to a Request object.
      * @return array{presenter: string, action: string|null, method: string, post: mixed[], files: mixed[], secured: bool, id?: string|null, format: string, associations: array<string, mixed>, data: string, query: mixed[]}
      */
@@ -118,7 +88,7 @@ class RestRoute implements \Nette\Routing\Router
         $basePath = Strings::replace($url->getBasePath(), '/\//', '\/');
         $cleanPath = Strings::replace($url->getPath(), "/^{$basePath}/");
 
-        $path = Strings::replace($this->getPath(), '/\//', '\/');
+        $path = Strings::replace($this->path, '/\//', '\/');
         $pathRexExp = empty($path) ? "/^.+$/" : "/^{$path}\/.*$/";
 
         if (!Strings::match($cleanPath, $pathRexExp)) {
