@@ -6,3 +6,4 @@ Version 5.0.0-dev
 - added support for HEAD method
 - fixed compatibility with nette/application 3.2, allowed nette/utils 4
 - BC break: removed methods RestRoute::getDefaultFormat and getPath from public api, added virtual readonly properties $defaultFormat and $path instead
+- BC break: made RestRoute::$module virtual readonly property

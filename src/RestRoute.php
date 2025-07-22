@@ -16,6 +16,7 @@ use Nette\Utils\Validators;
  * @author Adam Štipák <adam.stipak@gmail.com>
  * @property-read string $defaultFormat
  * @property-read string $path
+ * @property-read string $module
  */
 class RestRoute implements \Nette\Routing\Router
 {
@@ -39,7 +40,7 @@ class RestRoute implements \Nette\Routing\Router
 
     private string $path;
 
-    protected ?string $module;
+    private ?string $module;
 
     protected string $versionRegex;
 
@@ -97,6 +98,14 @@ class RestRoute implements \Nette\Routing\Router
     protected function getPath(): string
     {
         return $this->path;
+    }
+
+    /**
+     * @internal Access the property directly
+     */
+    protected function getModule(): ?string
+    {
+        return $this->module;
     }
 
     /**
