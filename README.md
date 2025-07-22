@@ -24,7 +24,7 @@ $ composer require nexendrie/rest-route
 ## Usage:
 
 ```php
-use AdamStipak\RestRoute;
+use Nexendrie\RestRoute\RestRoute;
 
 // $router is an instance of Nette\Application\Routers\RouteList  
 

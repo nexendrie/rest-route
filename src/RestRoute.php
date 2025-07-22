@@ -1,12 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace AdamStipak;
+namespace Nexendrie\RestRoute;
 
-use AdamStipak\Support\Inflector;
+use Nexendrie\RestRoute\Support\Inflector;
 use Nette\Http\UrlScript;
 use Nette\InvalidArgumentException;
-use Nette\Application\Request;
 use Nette\Http\IRequest;
 use Nette\InvalidStateException;
 use Nette\SmartObject;
@@ -252,7 +251,7 @@ class RestRoute implements \Nette\Routing\Router
 
         // Module prefix.
         $moduleFrags = explode(":", $params[self::KEY_PRESENTER]);
-        $moduleFrags = array_map('\AdamStipak\Support\Inflector::spinalCase', $moduleFrags);
+        $moduleFrags = array_map([Inflector::class, "spinalCase"], $moduleFrags);
         $resourceName = array_pop($moduleFrags);
         $urlStack += $moduleFrags;
 

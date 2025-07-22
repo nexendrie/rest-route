@@ -1,5 +1,5 @@
 Version 5.0.0-dev
-- package renamed to nexendrie/rest-route
+- package renamed to nexendrie/rest-route, changed namespace to Nexendrie\RestRoute
 - allowed PHP 8
 - raised minimal version of PHP to 7.4
 - possible BC break: added/updated property types, type hints and return type hints

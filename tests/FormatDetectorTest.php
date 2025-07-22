@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace AdamStipak;
+namespace Nexendrie\RestRoute;
 
 use Nette\Http\Request;
 use Nette\Http\UrlScript;
