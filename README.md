@@ -24,6 +24,7 @@ $ composer require nexendrie/rest-route
 ## Usage:
 
 ```php
+<?php
 use Nexendrie\RestRoute\RestRoute;
 
 // $router is an instance of Nette\Application\Routers\RouteList  
@@ -284,6 +285,11 @@ First, you define regexp which is used to detect if the version parameter is pre
 Then, you define version to module mapping. `NULL` key stands for default module, if version parameter doesn't get detected.
 
 ```php
+<?php
+use Nexendrie\RestRoute\RestRoute;
+
+$router = new \Nette\Application\Routers\RouteList();
+...
 $router[] = (new RestRoute('Api')) // Optional module
     ->useURLModuleVersioning(
         RestRoute::MODULE_VERSION_PATH_PREFIX_PATTERN,     // Regex for URL version
@@ -310,6 +316,7 @@ RestRoute reads standard [PHP input](https://github.com/newPOPE/Nette-RestRoute/
 For multiple file upload RestRoute just set files when creates [`\Nette\Application\Request`](https://github.com/newPOPE/Nette-RestRoute/blob/master/src/RestRoute.php#L125). In presenter just inject `\Nette\Application\Request` service and use these files.
 
 ```php
+<?php
 class FooPresenter {
   /** @var \Nette\Application\Request @inject */
   public $request;
