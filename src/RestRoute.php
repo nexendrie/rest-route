@@ -94,7 +94,7 @@ class RestRoute implements \Nette\Routing\Router
 
     /**
      * Maps HTTP request to a Request object.
-     * @return array{presenter: string, action: string|null, method: string, post: mixed[], files: mixed[], secured: bool, id?: string|null, format: string, associations: array<string, mixed>, data: bool|string, query: mixed[]}
+     * @return array{presenter: string, action: string|null, method: string, post: mixed[], files: mixed[], secured: bool, id?: string|null, format: string, associations: array<string, mixed>, data: string, query: mixed[]}
      */
     public function match(IRequest $httpRequest): ?array
     {
@@ -227,12 +227,9 @@ class RestRoute implements \Nette\Routing\Router
         return $this->defaultFormat;
     }
 
-    /**
-     * @return string|bool
-     */
-    protected function readInput()
+    protected function readInput(): string
     {
-        return file_get_contents('php://input');
+        return (string) file_get_contents('php://input');
     }
 
     /**
