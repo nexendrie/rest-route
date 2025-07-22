@@ -34,8 +34,6 @@ class RestRoute implements \Nette\Routing\Router
 
     public readonly string $path;
 
-    public readonly ?string $module;
-
     protected string $versionRegex;
 
     protected bool $useURLModuleVersioning = false;
@@ -55,13 +53,12 @@ class RestRoute implements \Nette\Routing\Router
 
     public readonly string $defaultFormat;
 
-    public function __construct(?string $module = null, string $defaultFormat = 'json')
+    public function __construct(public readonly ?string $module = null, string $defaultFormat = 'json')
     {
         if (!array_key_exists($defaultFormat, $this->formats)) {
             throw new InvalidArgumentException("Format '{$defaultFormat}' is not allowed.");
         }
 
-        $this->module = $module;
         $this->defaultFormat = $defaultFormat;
         $path = implode('/', explode(':', (string) $this->module));
         $this->path = Strings::lower($path);
