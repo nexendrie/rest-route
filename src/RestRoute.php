@@ -213,7 +213,7 @@ class RestRoute implements \Nette\Routing\Router
     public function constructUrl(array $params, UrlScript $refUrl): ?string
     {
         // Module prefix not match.
-        if ($this->module && !Strings::startsWith($params[self::KEY_PRESENTER], $this->module)) {
+        if ($this->module && !str_starts_with($params[self::KEY_PRESENTER], $this->module)) {
             return null;
         }
 
