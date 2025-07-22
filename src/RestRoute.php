@@ -8,7 +8,6 @@ use Nette\Http\UrlScript;
 use Nette\InvalidArgumentException;
 use Nette\Http\IRequest;
 use Nette\InvalidStateException;
-use Nette\SmartObject;
 use Nette\Utils\Strings;
 use Nette\Utils\Validators;
 
@@ -17,8 +16,6 @@ use Nette\Utils\Validators;
  */
 class RestRoute implements \Nette\Routing\Router
 {
-    use SmartObject;
-
     public const MODULE_VERSION_PATH_PREFIX_PATTERN = '/v[0-9\.]+/';
 
     public const KEY_PRESENTER = 'presenter';
