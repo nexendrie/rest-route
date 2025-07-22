@@ -8,14 +8,19 @@ use Nette\Http\UrlScript;
 use Nette\InvalidArgumentException;
 use Nette\Http\IRequest;
 use Nette\InvalidStateException;
+use Nette\SmartObject;
 use Nette\Utils\Strings;
 use Nette\Utils\Validators;
 
 /**
  * @author Adam Štipák <adam.stipak@gmail.com>
+ * @property-read string $defaultFormat
+ * @property-read string $path
  */
 class RestRoute implements \Nette\Routing\Router
 {
+    use SmartObject;
+
     public const MODULE_VERSION_PATH_PREFIX_PATTERN = '/v[0-9\.]+/';
 
     public const KEY_PRESENTER = 'presenter';
@@ -32,7 +37,7 @@ class RestRoute implements \Nette\Routing\Router
 
     public const KEY_QUERY = 'query';
 
-    protected string $path;
+    private string $path;
 
     protected ?string $module;
 
@@ -53,7 +58,7 @@ class RestRoute implements \Nette\Routing\Router
         'xml' => 'application/xml',
     ];
 
-    protected string $defaultFormat;
+    private string $defaultFormat;
 
     public function __construct(?string $module = null, string $defaultFormat = 'json')
     {
@@ -63,6 +68,8 @@ class RestRoute implements \Nette\Routing\Router
 
         $this->module = $module;
         $this->defaultFormat = $defaultFormat;
+        $path = implode('/', explode(':', (string) $this->module));
+        $this->path = Strings::lower($path);
     }
 
     /**
@@ -76,16 +83,19 @@ class RestRoute implements \Nette\Routing\Router
         return $this;
     }
 
-    public function getDefaultFormat(): string
+    /**
+     * @internal Access the property directly
+     */
+    protected function getDefaultFormat(): string
     {
         return $this->defaultFormat;
     }
 
-    public function getPath(): string
+    /**
+     * @internal Access the property directly
+     */
+    protected function getPath(): string
     {
-        $path = implode('/', explode(':', (string) $this->module));
-        $this->path = Strings::lower($path);
-
         return $this->path;
     }
 

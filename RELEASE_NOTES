@@ -6,4 +6,6 @@ It adds support for PHP 8 but removes support for PHP 7.1, 7.2 and 7.3. The code
 
 Http method HEAD is now supported, it calls read/readAll action (just like GET method).
 
+Methods RestRoute::getDefaultFormat and getPath were replaced with (virtual) readonly properties $defaultFormat and $path. This will allow smooth transition to public readonly properties on PHP 8.1.
+
 For complete list of changes since previous version, see CHANGELOG.md.

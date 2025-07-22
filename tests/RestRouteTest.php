@@ -31,8 +31,7 @@ class RestRouteTest extends TestCase
     {
         $route = new RestRoute('Api', 'xml');
 
-        $defaultFormat = $route->getDefaultFormat();
-        $this->assertEquals('xml', $defaultFormat);
+        $this->assertEquals('xml', $route->defaultFormat);
     }
 
     public function testMatchAndConstructUrl(): void
