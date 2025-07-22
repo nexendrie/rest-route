@@ -49,13 +49,15 @@ test:reports:
         - composer install --no-interaction --prefer-dist --no-progress
     script:
         - vendor/bin/phpunit --coverage-text --coverage-filter src --colors=never --log-junit junit.xml
-        - vendor/bin/phpstan analyze
+        - vendor/bin/phpstan analyze --error-format=gitlab | tee phpstan.json
     coverage: '/^\s*Lines:\s*\d+.\d+\%/'
     artifacts:
         paths:
             - junit.xml
+            - phpstan.json
         reports:
             junit: junit.xml
+            codequality: phpstan.json
     cache:
         paths:
             - vendor/
