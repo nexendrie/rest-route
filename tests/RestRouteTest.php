@@ -136,7 +136,7 @@ class RestRouteTest extends TestCase
     /**
      * @return array<int, array{0: string, 1: string, 2: string, 3?: int}>
      */
-    public function getActions(): array
+    public static function getActions(): array
     {
         return [
             ['POST', '/foo', 'create'],
@@ -185,7 +185,7 @@ class RestRouteTest extends TestCase
     /**
      * @return array<int, array{0: string|null, 1: string, 2: string, 3: string}>
      */
-    public function getVersions(): array
+    public static function getVersions(): array
     {
         return [
             [null, '/foo', 'V1:Foo', 'http://localhost/v1/foo'],

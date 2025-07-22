@@ -43,7 +43,7 @@ class ConstructUrlTest extends TestCase
     /**
      * @return array<int, array{associations: array<string, mixed>, result: string}>
      */
-    public function createAssociations(): array
+    public static function createAssociations(): array
     {
         return [
             [

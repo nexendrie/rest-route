@@ -31,7 +31,7 @@ class ActionDetectorTest extends TestCase
     /**
      * @return array<int, array{0: string, 1: string}>
      */
-    public function getActions(): array
+    public static function getActions(): array
     {
         return [
             ['POST', 'create'],
