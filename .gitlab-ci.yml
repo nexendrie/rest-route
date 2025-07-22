@@ -5,7 +5,7 @@ stages:
     - test
     - announce
 
-.job_template: &test_job
+.test_job: &test_job
     stage: test
     before_script:
         - composer install --no-interaction --prefer-dist --no-progress
@@ -43,10 +43,9 @@ test:php8.4:
     image: nexendrie/php:8.4
 
 test:reports:
-    stage: test
+    extends:
+        - .test_job
     image: nexendrie/php:8.4
-    before_script:
-        - composer install --no-interaction --prefer-dist --no-progress
     script:
         - vendor/bin/phpunit --coverage-text --coverage-filter src --colors=never --log-junit junit.xml
         - vendor/bin/phpstan analyze --error-format=gitlab | tee phpstan.json
@@ -58,11 +57,6 @@ test:reports:
         reports:
             junit: junit.xml
             codequality: phpstan.json
-    cache:
-        paths:
-            - vendor/
-    rules:
-        - if: $CI_COMMIT_BRANCH
 
 announce:gitlab:
     stage: announce
