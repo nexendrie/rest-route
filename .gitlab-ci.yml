@@ -39,14 +39,18 @@ test:reports:
         - .test_job
     image: nexendrie/php:8.4
     script:
-        - vendor/bin/phpunit --coverage-text --coverage-filter src --colors=never --log-junit junit.xml
+        - vendor/bin/phpunit --coverage-text --coverage-filter src --colors=never --log-junit junit.xml --coverage-cobertura coverage.xml
         - vendor/bin/phpstan analyze --error-format=gitlab | tee phpstan.json
     coverage: '/^\s*Lines:\s*\d+.\d+\%/'
     artifacts:
         paths:
+            - coverage.xml
             - junit.xml
             - phpstan.json
         reports:
+            coverage_report:
+                coverage_format: cobertura
+                path: coverage.xml
             junit: junit.xml
             codequality: phpstan.json
 
