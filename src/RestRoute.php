@@ -163,24 +163,15 @@ class RestRoute implements \Nette\Routing\Router
     protected function detectAction(IRequest $request): ?string
     {
         $method = $this->detectMethod($request);
-
-        switch ($method) {
-            case 'GET':
-            case 'HEAD':
-                return 'read';
-            case 'POST':
-                return 'create';
-            case 'PATCH':
-                return 'partialUpdate';
-            case 'PUT':
-                return 'update';
-            case 'DELETE':
-                return 'delete';
-            case 'OPTIONS':
-                return 'options';
-            default:
-                throw new InvalidStateException('Method ' . $method . ' is not allowed.');
-        }
+        return match ($method) {
+            'GET', 'HEAD' => 'read',
+            'POST' => 'create',
+            'PATCH' => 'partialUpdate',
+            'PUT' => 'update',
+            'DELETE' => 'delete',
+            'OPTIONS' => 'options',
+            default => throw new InvalidStateException('Method ' . $method . ' is not allowed.'),
+        };
     }
 
     protected function detectMethod(IRequest $request): string
