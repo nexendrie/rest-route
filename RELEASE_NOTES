@@ -1,11 +1,3 @@
 A new version of Rest route is out.
 
-The package was adopted by Nexendrie Project as it was unmaintained for years and it is needed by the project. In the process, the package was renamed to nexendrie/rest-route and namespace was changed to changed namespace to Nexendrie\RestRoute.
-
-It adds support for PHP 8 but removes support for PHP 7.1, 7.2 and 7.3. The code was updated to made use of some new features which might have caused a few BC breaks.
-
-Http method HEAD is now supported, it calls read/readAll action (just like GET method).
-
-Methods RestRoute::getDefaultFormat and getPath were replaced with (virtual) readonly properties $defaultFormat and $path, RestRoute::$module also behaves this way now. This will allow smooth transition to public readonly properties on PHP 8.1.
-
 For complete list of changes since previous version, see CHANGELOG.md.
