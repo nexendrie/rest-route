@@ -1,4 +1,4 @@
-Version 5.1.0-dev
+Version 5.1.0
 - raised minimal version of PHP to 8.1
 
 Version 5.0.0
