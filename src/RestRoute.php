@@ -8,8 +8,6 @@ use Nette\Http\UrlScript;
 use Nette\InvalidArgumentException;
 use Nette\Http\IRequest;
 use Nette\InvalidStateException;
-use Nette\Utils\Strings;
-use Nette\Utils\Validators;
 
 /**
  * @author Adam Štipák <adam.stipak@gmail.com>
@@ -61,7 +59,7 @@ class RestRoute implements \Nette\Routing\Router
 
         $this->defaultFormat = $defaultFormat;
         $path = implode('/', explode(':', (string) $this->module));
-        $this->path = Strings::lower($path);
+        $this->path = mb_strtolower($path);
     }
 
     /**
@@ -82,17 +80,17 @@ class RestRoute implements \Nette\Routing\Router
     public function match(IRequest $httpRequest): ?array
     {
         $url = $httpRequest->getUrl();
-        $basePath = Strings::replace($url->getBasePath(), '/\//', '\/');
-        $cleanPath = Strings::replace($url->getPath(), "/^{$basePath}/");
+        $basePath = preg_replace('/\//', '\/', $url->getBasePath());
+        $cleanPath = preg_replace("/^{$basePath}/", '', $url->getPath());
 
-        $path = Strings::replace($this->path, '/\//', '\/');
+        $path = preg_replace('/\//', '\/', $this->path);
         $pathRexExp = empty($path) ? "/^.+$/" : "/^{$path}\/.*$/";
 
-        if (!Strings::match($cleanPath, $pathRexExp)) {
+        if (!preg_match($pathRexExp, $cleanPath)) {
             return null;
         }
 
-        $cleanPath = Strings::replace($cleanPath, '/^' . $path . '\//');
+        $cleanPath = preg_replace('/^' . $path . '\//', '', $cleanPath);
 
         $params = [];
         $path = $cleanPath;
@@ -101,7 +99,7 @@ class RestRoute implements \Nette\Routing\Router
 
         if ($this->useURLModuleVersioning) {
             $version = array_shift($frags);
-            if (!Strings::match($version, $this->versionRegex)) {
+            if (!preg_match($this->versionRegex, $version)) {
                 array_unshift($frags, $version);
                 $version = null;
             }
@@ -117,7 +115,7 @@ class RestRoute implements \Nette\Routing\Router
 
         // Allow to use URLs like domain.tld/presenter.format.
         $formats = join('|', array_keys($this->formats));
-        if (Strings::match($presenterName, "/.+\.({$formats})$/")) {
+        if (preg_match("/.+\.({$formats})$/", $presenterName)) {
             list($presenterName) = explode('.', $presenterName);
         }
 
@@ -183,8 +181,8 @@ class RestRoute implements \Nette\Routing\Router
     {
         $header = $request->getHeader('Accept'); // http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
         foreach ($this->formats as $format => $fullFormatName) {
-            $fullFormatName = Strings::replace($fullFormatName, '/\//', '\/');
-            if ($header !== null && Strings::match($header, "/{$fullFormatName}/")) {
+            $fullFormatName = preg_replace('/\//', '\/', $fullFormatName);
+            if ($header !== null && preg_match("/{$fullFormatName}/", $header)) {
                 return $format;
             }
         }
@@ -193,7 +191,7 @@ class RestRoute implements \Nette\Routing\Router
         $path = $request->getUrl()->getPath();
         $formats = array_keys($this->formats);
         $formats = implode('|', $formats);
-        if (Strings::match($path, "/\.({$formats})$/")) {
+        if (preg_match("/\.({$formats})$/", $path)) {
             list($path, $format) = explode('.', $path);
             return $format;
         }
@@ -227,7 +225,7 @@ class RestRoute implements \Nette\Routing\Router
         $urlStack += $moduleFrags;
 
         // Associations.
-        if (isset($params[self::KEY_ASSOCIATIONS]) && Validators::is($params[self::KEY_ASSOCIATIONS], 'array')) {
+        if (isset($params[self::KEY_ASSOCIATIONS]) && is_array($params[self::KEY_ASSOCIATIONS])) {
             $associations = $params[self::KEY_ASSOCIATIONS];
             unset($params[self::KEY_ASSOCIATIONS]);
 
@@ -241,7 +239,7 @@ class RestRoute implements \Nette\Routing\Router
         $urlStack[] = $resourceName;
 
         // Id.
-        if (isset($params['id']) && Validators::is($params['id'], 'scalar')) {
+        if (isset($params['id']) && is_scalar($params['id'])) {
             $urlStack[] = $params['id'];
             unset($params['id']);
         }

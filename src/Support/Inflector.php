@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace Nexendrie\RestRoute\Support;
 
-use Nette\Utils\Strings;
-
 class Inflector
 {
     /**
@@ -12,8 +10,8 @@ class Inflector
      */
     public static function studlyCase(string $string): string
     {
-        $string = Strings::capitalize(Strings::replace($string, ['/-/', '/_/'], ' '));
-        return Strings::replace($string, '/ /');
+        $string = mb_convert_case(preg_replace(['/-/', '/_/'], ' ', $string), MB_CASE_TITLE, 'UTF-8');
+        return preg_replace('/ /', '', $string);
     }
 
     /**
@@ -25,7 +23,9 @@ class Inflector
         preg_match_all('/([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)/', $string, $matches);
         $matches = $matches[0];
         foreach ($matches as &$match) {
-            $match = ($match == Strings::upper($match)) ? Strings::lower($match) : Strings::firstLower($match);
+            $match = ($match == mb_strtoupper($match, 'UTF-8')) ?
+                mb_strtolower($match, 'UTF-8') :
+                mb_lcfirst($match, 'UTF-8');
         }
         return implode('-', $matches);
     }
