@@ -23,7 +23,7 @@ class Inflector
         preg_match_all('/([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)/', $string, $matches);
         $matches = $matches[0];
         foreach ($matches as &$match) {
-            $match = ($match == mb_strtoupper($match, 'UTF-8')) ?
+            $match = ($match === mb_strtoupper($match, 'UTF-8')) ?
                 mb_strtolower($match, 'UTF-8') :
                 mb_lcfirst($match, 'UTF-8');
         }

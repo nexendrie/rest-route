@@ -125,10 +125,10 @@ class RestRouteTest extends TestCase
         $this->assertEquals('Foo', $params[RestRoute::KEY_PRESENTER]);
         $this->assertEquals($action, $params[RestRoute::KEY_ACTION]);
 
-        if ($id) {
+        if ($id !== null) {
             $this->assertEquals($id, $params['id']); // @phpstan-ignore offsetAccess.notFound
         }
-        if ($associations) {
+        if ($associations !== null) {
             $this->assertSame($associations, $params[RestRoute::KEY_ASSOCIATIONS]);
         }
     }

@@ -81,10 +81,10 @@ class RestRoute implements \Nette\Routing\Router
         $basePath = preg_replace('/\//', '\/', $url->getBasePath());
         $cleanPath = preg_replace("/^{$basePath}/", '', $url->getPath());
 
-        $path = preg_replace('/\//', '\/', $this->path);
-        $pathRexExp = empty($path) ? "/^.+$/" : "/^{$path}\/.*$/";
+        $path = (string) preg_replace('/\//', '\/', $this->path);
+        $pathRexExp = $path === '' ? "/^.+$/" : "/^{$path}\/.*$/";
 
-        if (!preg_match($pathRexExp, $cleanPath)) {
+        if (preg_match($pathRexExp, $cleanPath) !== 1) {
             return null;
         }
 
@@ -97,7 +97,7 @@ class RestRoute implements \Nette\Routing\Router
 
         if ($this->useURLModuleVersioning) {
             $version = array_shift($frags);
-            if (!preg_match($this->versionRegex, $version)) {
+            if (preg_match($this->versionRegex, $version) !== 1) {
                 array_unshift($frags, $version);
                 $version = null;
             }
@@ -113,7 +113,7 @@ class RestRoute implements \Nette\Routing\Router
 
         // Allow to use URLs like domain.tld/presenter.format.
         $formats = join('|', array_keys($this->formats));
-        if (preg_match("/.+\.({$formats})$/", $presenterName)) {
+        if (preg_match("/.+\.({$formats})$/", $presenterName) === 1) {
             list($presenterName) = explode('.', $presenterName);
         }
 
@@ -136,12 +136,12 @@ class RestRoute implements \Nette\Routing\Router
 
         if ($this->useURLModuleVersioning) {
             $suffix = $presenterName;
-            $presenterName = empty($this->module) ? "" : $this->module . ':';
+            $presenterName = (string) $this->module === '' ? "" : $this->module . ':';
             $presenterName .= array_key_exists($version, $this->versionToModuleMapping)
                 ? $this->versionToModuleMapping[$version] . ":" . $suffix
                 : $this->versionToModuleMapping[null] . ":" . $suffix;
         } else {
-            $presenterName = empty($this->module) ? $presenterName : $this->module . ':' . $presenterName;
+            $presenterName = (string) $this->module === '' ? $presenterName : $this->module . ':' . $presenterName;
         }
 
         $returnArray = [
@@ -180,7 +180,7 @@ class RestRoute implements \Nette\Routing\Router
         $header = $request->getHeader('Accept'); // http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
         foreach ($this->formats as $format => $fullFormatName) {
             $fullFormatName = preg_replace('/\//', '\/', $fullFormatName);
-            if ($header !== null && preg_match("/{$fullFormatName}/", $header)) {
+            if ($header !== null && preg_match("/{$fullFormatName}/", $header) === 1) {
                 return $format;
             }
         }
@@ -189,7 +189,7 @@ class RestRoute implements \Nette\Routing\Router
         $path = $request->getUrl()->getPath();
         $formats = array_keys($this->formats);
         $formats = implode('|', $formats);
-        if (preg_match("/\.({$formats})$/", $path)) {
+        if (preg_match("/\.({$formats})$/", $path) === 1) {
             list($path, $format) = explode('.', $path);
             return $format;
         }
@@ -209,7 +209,7 @@ class RestRoute implements \Nette\Routing\Router
     public function constructUrl(array $params, UrlScript $refUrl): ?string
     {
         // Module prefix not match.
-        if ($this->module && !str_starts_with($params[self::KEY_PRESENTER], $this->module)) {
+        if ((string) $this->module !== '' && !str_starts_with($params[self::KEY_PRESENTER], $this->module)) {
             return null;
         }
 
@@ -244,10 +244,10 @@ class RestRoute implements \Nette\Routing\Router
 
         $url .= implode('/', $urlStack);
 
-        $sep = ini_get('arg_separator.input');
+        $sep = (string) ini_get('arg_separator.input');
 
         if (isset($params[self::KEY_QUERY])) {
-            $query = http_build_query($params[self::KEY_QUERY], '', $sep ? $sep[0] : '&');
+            $query = http_build_query($params[self::KEY_QUERY], '', $sep !== '' ? $sep[0] : '&');
 
             if ($query !== '') {
                 $url .= '?' . $query;
