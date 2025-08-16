@@ -5,9 +5,7 @@ namespace Nexendrie\RestRoute;
 
 use Nexendrie\RestRoute\Support\Inflector;
 use Nette\Http\UrlScript;
-use Nette\InvalidArgumentException;
 use Nette\Http\IRequest;
-use Nette\InvalidStateException;
 
 /**
  * @author Adam Štipák <adam.stipak@gmail.com>

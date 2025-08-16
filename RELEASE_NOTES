@@ -1,3 +1,3 @@
-A new version of Rest route is out.
+A new version of Rest route is out. It adds exceptions Nexendrie\RestRoute\InvalidArgumentException and Nexendrie\RestRoute\InvalidStateException as aliases for their namesakes from namespace Nette and which they will replace in the next major version.
 
 For complete list of changes since previous version, see CHANGELOG.md.

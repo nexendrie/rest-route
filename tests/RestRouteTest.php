@@ -23,7 +23,7 @@ class RestRouteTest extends TestCase
 
     public function testConstructorWithInvalidDefaultFormat(): void
     {
-        $this->expectException(\Nette\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $route = new RestRoute('Api', 'invalid');
     }
 
