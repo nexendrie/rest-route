@@ -12,7 +12,7 @@ And creates parameters which are accessible in Presenter.
 - query (an array of items from the query string)
 
 ## Format detection:
-Variable ```$format``` is detected from HTTP header ```Accept```. If header is not present Route try detect format from the URL (```.../foo.json```). If no format is in the URL Route use a default format ```json```.
+Variable ```$format``` is detected from HTTP header ```Accept```. If header is not present Route tries to detect format from the URL (```.../foo.json```). If no format is in the URL Route use a default format ```json```.
 
 ## Installation:
 The best way to install Nette-RestRoute is using  [Composer](http://getcomposer.org/):
@@ -35,7 +35,7 @@ $router[] = new RestRoute;
 // With module.
 $router[] = new RestRoute('Api');
 
-// With module and xml as a default format.
+// With module and XML as a default format.
 $router[] = new RestRoute('Api', 'xml');
 
 // With URL module versioning
@@ -51,7 +51,7 @@ $router[] = (new RestRoute())
 ```
 
 
-First parameter is a name of the module where the route will sends an Request. URL prefix will be generated. See examples.
+First parameter is a name of the module where the route will send a Request. URL prefix will be generated. See examples.
 ####Examples:
  
 ```
