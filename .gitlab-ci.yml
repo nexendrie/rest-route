@@ -7,11 +7,8 @@ stages:
 
 .test_job: &test_job
     stage: test
-    before_script:
-        - composer install --no-interaction --prefer-dist --no-progress
     script:
-        - vendor/bin/phpcs src/ tests/
-        - vendor/bin/phpunit
+        - phing test
     cache:
         paths:
             - vendor/
@@ -38,9 +35,8 @@ test:reports:
     extends:
         - .test_job
     image: nexendrie/php:8.4
-    script:
-        - vendor/bin/phpunit --coverage-text --coverage-filter src --colors=never --log-junit junit.xml --coverage-cobertura coverage.xml
-        - vendor/bin/phpstan analyze --error-format=gitlab | tee phpstan.json
+    variables:
+        REPORTS: 1
     coverage: '/^\s*Lines:\s*\d+.\d+\%/'
     artifacts:
         paths:
