@@ -52,8 +52,8 @@ $router[] = (new RestRoute())
 
 
 First parameter is a name of the module where the route will send a Request. URL prefix will be generated. See examples.
-####Examples:
- 
+#### Examples:
+
 ```
 NULL      => /<generated presenter name>
 'Api'     => /api/<generated presenter name>
