@@ -12,6 +12,13 @@
                 <isset property="env.REPORTS"/>
             </not>
             <then>
+                <exec executable="vendor/bin/parallel-lint" logoutput="true" passthru="true" checkreturn="true">
+                    <arg path="src"/>
+                    <arg path="tests"/>
+                    <arg value="-e"/>
+                    <arg value="php"/>
+                    <arg value="--colors"/>
+                </exec>
                 <exec executable="vendor/bin/phpcs" logoutput="true" passthru="true" checkreturn="true">
                     <arg value="src"/>
                     <arg value="tests"/>
