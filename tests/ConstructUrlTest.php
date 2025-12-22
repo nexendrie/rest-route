@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\RestRoute;
 
+use Nette\Http\IRequest;
 use Nette\Http\UrlScript;
 use PHPUnit\Framework\TestCase;
 
@@ -13,7 +14,7 @@ class ConstructUrlTest extends TestCase
         $route = new RestRoute();
         $params = [
             RestRoute::KEY_PRESENTER => 'Resource',
-            RestRoute::KEY_METHOD => \Nette\Http\Request::GET,
+            RestRoute::KEY_METHOD => IRequest::Get,
             'id' => 987
         ];
 
@@ -29,7 +30,7 @@ class ConstructUrlTest extends TestCase
         $route = new RestRoute('Api');
         $params = [
             RestRoute::KEY_PRESENTER => 'Api:Resource',
-            RestRoute::KEY_METHOD => \Nette\Http\Request::GET,
+            RestRoute::KEY_METHOD => IRequest::Get,
             'id' => 987,
         ];
 
@@ -85,7 +86,7 @@ class ConstructUrlTest extends TestCase
         $route = new RestRoute('Api');
         $params = [
             RestRoute::KEY_PRESENTER => 'Api:Resource',
-            RestRoute::KEY_METHOD => \Nette\Http\Request::GET,
+            RestRoute::KEY_METHOD => IRequest::Get,
             'id' => 987,
             RestRoute::KEY_ASSOCIATIONS => $associations
         ];
@@ -102,7 +103,7 @@ class ConstructUrlTest extends TestCase
         $route = new RestRoute();
         $params = [
             RestRoute::KEY_PRESENTER => 'Resource',
-            RestRoute::KEY_METHOD => \Nette\Http\Request::GET,
+            RestRoute::KEY_METHOD => IRequest::Get,
             'id' => 987,
         ];
 
@@ -118,7 +119,7 @@ class ConstructUrlTest extends TestCase
         $route = new RestRoute();
         $params = [
             RestRoute::KEY_PRESENTER => 'Resource',
-            RestRoute::KEY_METHOD => \Nette\Http\Request::GET,
+            RestRoute::KEY_METHOD => IRequest::Get,
             'id' => 987,
         ];
 
@@ -134,7 +135,7 @@ class ConstructUrlTest extends TestCase
         $route = new RestRoute();
         $params = [
             RestRoute::KEY_PRESENTER => 'Resource',
-            RestRoute::KEY_METHOD => \Nette\Http\Request::GET,
+            RestRoute::KEY_METHOD => IRequest::Get,
             'id' => 987,
             'query' => [
                 'foo' => 'bar',

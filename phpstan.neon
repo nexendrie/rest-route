@@ -12,6 +12,5 @@ parameters:
     treatPhpDocTypesAsCertain: false
     ignoreErrors:
         - '#Dynamic call to static method PHPUnit\\Framework\\Assert::assert[a-zA-Z]+\(\)#'
-        - '#Fetching deprecated class constant GET of interface Nette\\Http\\IRequest#'
         -
             identifier: method.childParameterType
