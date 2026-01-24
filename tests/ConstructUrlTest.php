@@ -5,6 +5,7 @@ namespace Nexendrie\RestRoute;
 
 use Nette\Http\IRequest;
 use Nette\Http\UrlScript;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ConstructUrlTest extends TestCase
@@ -78,9 +79,9 @@ class ConstructUrlTest extends TestCase
     }
 
     /**
-     * @dataProvider createAssociations
      * @param array<string, mixed> $associations
      */
+    #[DataProvider("createAssociations")]
     public function testWithModuleAndAssociations(array $associations, string $result): void
     {
         $route = new RestRoute('Api');

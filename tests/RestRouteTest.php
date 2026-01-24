@@ -5,6 +5,7 @@ namespace Nexendrie\RestRoute;
 
 use Nette\Http\UrlScript;
 use Nette\Http\Request;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class RestRouteTest extends TestCase
@@ -105,9 +106,9 @@ class RestRouteTest extends TestCase
     }
 
     /**
-     * @dataProvider getActions
      * @param mixed[]|null $associations
      */
+    #[DataProvider("getActions")]
     public function testDefault(
         string $method,
         string $path,
@@ -151,9 +152,7 @@ class RestRouteTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider getVersions
-     */
+    #[DataProvider("getVersions")]
     public function testModuleVersioning(
         ?string $module,
         string $path,

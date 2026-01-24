@@ -5,6 +5,7 @@ namespace Nexendrie\RestRoute;
 
 use Nette\Http\UrlScript;
 use Nette\Http\Request;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ActionDetectorTest extends TestCase
@@ -12,9 +13,8 @@ class ActionDetectorTest extends TestCase
     /**
      * @param string $method
      * @param string $action
-     *
-     * @dataProvider getActions
      */
+    #[DataProvider("getActions")]
     public function testAction(string $method, string $action): void
     {
         $route = new RestRoute();
