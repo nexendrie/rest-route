@@ -22,7 +22,6 @@
                 <exec executable="vendor/bin/phpcs" logoutput="true" passthru="true" checkreturn="true">
                     <arg value="src"/>
                     <arg value="tests"/>
-                    <arg value="--colors"/>
                 </exec>
             </then>
         </if>
