@@ -1,5 +1,6 @@
 Version 5.2.0-dev
 - added Nexendrie\RestRoute\InvalidArgumentException and Nexendrie\RestRoute\InvalidStateException
+- raised minimal version of PHP to 8.2
 
 Version 5.1.0
 - raised minimal version of PHP to 8.1
