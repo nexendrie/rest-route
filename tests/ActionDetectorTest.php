@@ -24,8 +24,8 @@ class ActionDetectorTest extends TestCase
 
         $parameters = $route->match($request);
 
-        $this->assertEquals('Foo', $parameters[RestRoute::KEY_PRESENTER]);
-        $this->assertEquals($action, $parameters[RestRoute::KEY_ACTION]);
+        $this->assertEquals('Foo', $parameters[RestRoute::KEY_PRESENTER]); // @phpstan-ignore offsetAccess.notFound
+        $this->assertEquals($action, $parameters[RestRoute::KEY_ACTION]); // @phpstan-ignore offsetAccess.notFound
     }
 
     /**

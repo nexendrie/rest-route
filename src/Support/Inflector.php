@@ -10,8 +10,8 @@ class Inflector
      */
     public static function studlyCase(string $string): string
     {
-        $string = mb_convert_case(preg_replace(['/-/', '/_/'], ' ', $string), MB_CASE_TITLE, 'UTF-8');
-        return preg_replace('/ /', '', $string);
+        $string = mb_convert_case((string) preg_replace(['/-/', '/_/'], ' ', $string), MB_CASE_TITLE, 'UTF-8');
+        return (string) preg_replace('/ /', '', $string);
     }
 
     /**

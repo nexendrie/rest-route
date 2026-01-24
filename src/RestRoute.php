@@ -79,6 +79,7 @@ class RestRoute implements \Nette\Routing\Router
     {
         $url = $httpRequest->getUrl();
         $basePath = preg_replace('/\//', '\/', $url->getBasePath());
+        /** @var string $cleanPath */
         $cleanPath = preg_replace("/^{$basePath}/", '', $url->getPath());
 
         $path = (string) preg_replace('/\//', '\/', $this->path);
@@ -88,6 +89,7 @@ class RestRoute implements \Nette\Routing\Router
             return null;
         }
 
+        /** @var string $cleanPath */
         $cleanPath = preg_replace('/^' . $path . '\//', '', $cleanPath);
 
         $params = [];
@@ -109,7 +111,7 @@ class RestRoute implements \Nette\Routing\Router
         } elseif ($params['action'] === 'read') {
             $params['action'] = 'readAll';
         }
-        $presenterName = Inflector::studlyCase(array_pop($frags));
+        $presenterName = Inflector::studlyCase((string) array_pop($frags));
 
         // Allow to use URLs like domain.tld/presenter.format.
         $formats = join('|', array_keys($this->formats));
@@ -137,7 +139,7 @@ class RestRoute implements \Nette\Routing\Router
         if ($this->useURLModuleVersioning) {
             $suffix = $presenterName;
             $presenterName = (string) $this->module === '' ? "" : $this->module . ':';
-            $presenterName .= array_key_exists($version, $this->versionToModuleMapping)
+            $presenterName .= array_key_exists($version, $this->versionToModuleMapping) // @phpstan-ignore argument.type
                 ? $this->versionToModuleMapping[$version] . ":" . $suffix
                 : $this->versionToModuleMapping[null] . ":" . $suffix;
         } else {
@@ -209,7 +211,7 @@ class RestRoute implements \Nette\Routing\Router
     public function constructUrl(array $params, UrlScript $refUrl): ?string
     {
         // Module prefix not match.
-        if ((string) $this->module !== '' && !str_starts_with($params[self::KEY_PRESENTER], $this->module)) {
+        if ((string) $this->module !== '' && !str_starts_with($params[self::KEY_PRESENTER], (string) $this->module)) {
             return null;
         }
 
