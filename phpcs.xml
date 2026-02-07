@@ -24,9 +24,7 @@
     </rule>
     <rule ref="Generic.Strings"/>
     <rule ref="Generic.WhiteSpace.LanguageConstructSpacing"/>
-    <rule ref="Squiz.Classes">
-        <exclude name="Squiz.Classes.DuplicateProperty"/>
-    </rule>
+    <rule ref="Squiz.Classes"/>
     <rule ref="Squiz.PHP.CommentedOutCode"/>
     <rule ref="Squiz.PHP.DiscouragedFunctions"/>
     <rule ref="Squiz.PHP.Eval"/>
