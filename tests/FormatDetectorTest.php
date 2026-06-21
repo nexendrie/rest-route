@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Nexendrie\RestRoute;
 
+use MyTester\TestCase;
 use Nette\Http\Request;
 use Nette\Http\UrlScript;
-use PHPUnit\Framework\TestCase;
 
 class FormatDetectorTest extends TestCase
 {
@@ -23,7 +23,7 @@ class FormatDetectorTest extends TestCase
         $request = new Request($url, [], [], [], ['accept' => 'application/json']);
         $format = $this->runDetectFormatMethod($route, $request);
 
-        $this->assertEquals('json', $format);
+        $this->assertSame('json', $format);
     }
 
     public function testFormatXmlWithAcceptHeader(): void
@@ -34,7 +34,7 @@ class FormatDetectorTest extends TestCase
         $request = new Request($url, [], [], [], ['accept' => 'application/xml']);
         $format = $this->runDetectFormatMethod($route, $request);
 
-        $this->assertEquals('xml', $format);
+        $this->assertSame('xml', $format);
     }
 
     public function testDefaultFormatWithWildcardHeader(): void
@@ -45,7 +45,7 @@ class FormatDetectorTest extends TestCase
         $request = new Request($url, [], [], [], ['accept' => '*/*']);
         $format = $this->runDetectFormatMethod($route, $request);
 
-        $this->assertEquals('json', $format);
+        $this->assertSame('json', $format);
     }
 
     public function testJsonFormatWithFallbackInUrl(): void
@@ -56,7 +56,7 @@ class FormatDetectorTest extends TestCase
         $request = new Request($url);
         $format = $this->runDetectFormatMethod($route, $request);
 
-        $this->assertEquals('json', $format);
+        $this->assertSame('json', $format);
     }
 
     public function testXmlFormatWithFallbackInUrl(): void
@@ -67,7 +67,7 @@ class FormatDetectorTest extends TestCase
         $request = new Request($url);
         $format = $this->runDetectFormatMethod($route, $request);
 
-        $this->assertEquals('xml', $format);
+        $this->assertSame('xml', $format);
     }
 
     public function testDefaultFormat(): void
@@ -78,6 +78,6 @@ class FormatDetectorTest extends TestCase
         $request = new Request($url);
         $format = $this->runDetectFormatMethod($route, $request);
 
-        $this->assertEquals('json', $format);
+        $this->assertSame('json', $format);
     }
 }

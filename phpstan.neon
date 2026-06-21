@@ -6,11 +6,7 @@ parameters:
     paths:
         - src
         - tests
-    bootstrapFiles:
-        - ./src/InvalidArgumentException.php
-        - ./src/InvalidStateException.php
     treatPhpDocTypesAsCertain: false
     ignoreErrors:
-        - '#Dynamic call to static method PHPUnit\\Framework\\Assert::assert[a-zA-Z]+\(\)#'
         -
             identifier: method.childParameterType

@@ -3,36 +3,37 @@ declare(strict_types=1);
 
 namespace Nexendrie\RestRoute;
 
+use MyTester\Attributes\DataProvider;
+use MyTester\TestCase;
 use Nette\Http\UrlScript;
 use Nette\Http\Request;
-use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\TestCase;
 
 class RestRouteTest extends TestCase
 {
     public function testConstructorWithNoModule(): void
     {
         $route = new RestRoute();
-        $this->assertInstanceOf(RestRoute::class, $route);
+        $this->assertType(RestRoute::class, $route);
     }
 
     public function testConstructorWithEmptyDefaultFormat(): void
     {
         $route = new RestRoute('Api');
-        $this->assertInstanceOf(RestRoute::class, $route);
+        $this->assertType(RestRoute::class, $route);
     }
 
     public function testConstructorWithInvalidDefaultFormat(): void
     {
-        $this->expectException(InvalidArgumentException::class);
-        $route = new RestRoute('Api', 'invalid');
+        $this->assertThrowsException(static function () {
+            $route = new RestRoute('Api', 'invalid');
+        }, InvalidArgumentException::class);
     }
 
     public function testConstructorWithXmlAsADefaultFormat(): void
     {
         $route = new RestRoute('Api', 'xml');
 
-        $this->assertEquals('xml', $route->defaultFormat);
+        $this->assertSame('xml', $route->defaultFormat);
     }
 
     public function testMatchAndConstructUrl(): void
@@ -51,7 +52,7 @@ class RestRouteTest extends TestCase
         $url = $route->constructUrl($appRequest, $refUrl); // @phpstan-ignore argument.type
 
         $expectedUrl = 'http://localhost/resource?access_token=foo-bar';
-        $this->assertEquals($expectedUrl, $url);
+        $this->assertSame($expectedUrl, $url);
     }
 
     public function testMatchAndConstructSpinalCaseUrlSingleResource(): void
@@ -65,13 +66,13 @@ class RestRouteTest extends TestCase
         $params = $route->match($request);
         $expectedPresenterName = 'ReSource';
         // @phpstan-ignore offsetAccess.notFound
-        $this->assertEquals($expectedPresenterName, $params[RestRoute::KEY_PRESENTER]);
+        $this->assertSame($expectedPresenterName, $params[RestRoute::KEY_PRESENTER]);
 
         $refUrl = new UrlScript('http://localhost');
         $url = $route->constructUrl($params, $refUrl); // @phpstan-ignore argument.type
 
         $expectedUrl = 'http://localhost/re-source';
-        $this->assertEquals($expectedUrl, $url);
+        $this->assertSame($expectedUrl, $url);
     }
 
     public function testMatchAndConstructSpinalCaseUrlMultipleResource(): void
@@ -85,13 +86,13 @@ class RestRouteTest extends TestCase
         $params = $route->match($request);
         $expectedPresenterName = 'ReSource';
         // @phpstan-ignore offsetAccess.notFound
-        $this->assertEquals($expectedPresenterName, $params[RestRoute::KEY_PRESENTER]);
+        $this->assertSame($expectedPresenterName, $params[RestRoute::KEY_PRESENTER]);
 
         $refUrl = new UrlScript('http://localhost');
         $url = $route->constructUrl($params, $refUrl); // @phpstan-ignore argument.type
 
         $expectedUrl = 'http://localhost/first-level/123/second-level/456/re-source';
-        $this->assertEquals($expectedUrl, $url);
+        $this->assertSame($expectedUrl, $url);
     }
 
     public function testFileUpload(): void
@@ -104,7 +105,7 @@ class RestRouteTest extends TestCase
         $request = new Request($url, [], $files, [], [], 'POST');
         $params = $route->match($request);
 
-        $this->assertEquals($files, $params[RestRoute::KEY_FILES]); // @phpstan-ignore offsetAccess.notFound
+        $this->assertSame($files, $params[RestRoute::KEY_FILES]); // @phpstan-ignore offsetAccess.notFound
     }
 
     /**
@@ -125,11 +126,11 @@ class RestRouteTest extends TestCase
 
         $params = $route->match($request);
 
-        $this->assertEquals('Foo', $params[RestRoute::KEY_PRESENTER]); // @phpstan-ignore offsetAccess.notFound
-        $this->assertEquals($action, $params[RestRoute::KEY_ACTION]); // @phpstan-ignore offsetAccess.notFound
+        $this->assertSame('Foo', $params[RestRoute::KEY_PRESENTER]); // @phpstan-ignore offsetAccess.notFound
+        $this->assertSame($action, $params[RestRoute::KEY_ACTION]); // @phpstan-ignore offsetAccess.notFound
 
         if ($id !== null) {
-            $this->assertEquals($id, $params['id']); // @phpstan-ignore offsetAccess.notFound
+            $this->assertSame((string) $id, $params['id']); // @phpstan-ignore offsetAccess.notFound
         }
         if ($associations !== null) {
             // @phpstan-ignore offsetAccess.notFound
@@ -138,20 +139,20 @@ class RestRouteTest extends TestCase
     }
 
     /**
-     * @return array<int, array{0: string, 1: string, 2: string, 3?: int}>
+     * @return array<int, array{0: string, 1: string, 2: string, 3: int|null, 4: null}>
      */
     public static function getActions(): array
     {
         return [
-            ['POST', '/foo', 'create'],
-            ['GET', '/foo', 'readAll'],
-            ['GET', '/foo/1', 'read', 1],
-            ['HEAD', '/foo', 'readAll'],
-            ['HEAD', '/foo/1', 'read', 1],
-            ['PATCH', '/foo', 'partialUpdate'],
-            ['PUT', '/foo', 'update'],
-            ['DELETE', '/foo', 'delete'],
-            ['OPTIONS', '/foo', 'options'],
+            ['POST', '/foo', 'create', null, null,],
+            ['GET', '/foo', 'readAll', null, null,],
+            ['GET', '/foo/1', 'read', 1, null,],
+            ['HEAD', '/foo', 'readAll', null, null,],
+            ['HEAD', '/foo/1', 'read', 1, null,],
+            ['PATCH', '/foo', 'partialUpdate', null, null,],
+            ['PUT', '/foo', 'update', null, null,],
+            ['DELETE', '/foo', 'delete', null, null,],
+            ['OPTIONS', '/foo', 'options', null, null,],
         ];
     }
 
@@ -178,11 +179,11 @@ class RestRouteTest extends TestCase
         $params = $route->match($request);
 
         // @phpstan-ignore offsetAccess.notFound
-        $this->assertEquals($expectedPresenterName, $params[RestRoute::KEY_PRESENTER]);
+        $this->assertSame($expectedPresenterName, $params[RestRoute::KEY_PRESENTER]);
 
         $refUrl = new UrlScript('http://localhost');
         $url = $route->constructUrl($params, $refUrl); // @phpstan-ignore argument.type
-        $this->assertEquals($expectedUrl, $url);
+        $this->assertSame($expectedUrl, $url);
     }
 
     /**

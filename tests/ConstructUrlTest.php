@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace Nexendrie\RestRoute;
 
+use MyTester\Attributes\DataProvider;
+use MyTester\TestCase;
 use Nette\Http\IRequest;
 use Nette\Http\UrlScript;
-use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\TestCase;
 
 class ConstructUrlTest extends TestCase
 {
@@ -23,7 +23,7 @@ class ConstructUrlTest extends TestCase
         $url = $route->constructUrl($params, $refUrl);
 
         $expectedUrl = 'http://localhost/resource/987';
-        $this->assertEquals($expectedUrl, $url);
+        $this->assertSame($expectedUrl, $url);
     }
 
     public function testWithModuleNoAssociations(): void
@@ -39,7 +39,7 @@ class ConstructUrlTest extends TestCase
         $url = $route->constructUrl($params, $refUrl);
 
         $expectedUrl = 'http://localhost/api/resource/987';
-        $this->assertEquals($expectedUrl, $url);
+        $this->assertSame($expectedUrl, $url);
     }
 
     /**
@@ -96,7 +96,7 @@ class ConstructUrlTest extends TestCase
         $url = $route->constructUrl($params, $refUrl);
 
         $expectedUrl = "http://localhost/api{$result}/resource/987";
-        $this->assertEquals($expectedUrl, $url);
+        $this->assertSame($expectedUrl, $url);
     }
 
     public function testDefaultsWithBasePath(): void
@@ -112,7 +112,7 @@ class ConstructUrlTest extends TestCase
         $url = $route->constructUrl($params, $refUrl);
 
         $expectedUrl = 'http://localhost/base-path/resource/987';
-        $this->assertEquals($expectedUrl, $url);
+        $this->assertSame($expectedUrl, $url);
     }
 
     public function testUrlOnSubdomain(): void
@@ -128,7 +128,7 @@ class ConstructUrlTest extends TestCase
         $url = $route->constructUrl($params, $refUrl);
 
         $expectedUrl = 'http://api.foo.bar/resource/987';
-        $this->assertEquals($expectedUrl, $url);
+        $this->assertSame($expectedUrl, $url);
     }
 
     public function testQueryParams(): void
@@ -148,6 +148,6 @@ class ConstructUrlTest extends TestCase
         $url = $route->constructUrl($params, $refUrl);
 
         $expectedUrl = 'http://api.foo.bar/resource/987?foo=bar&baz=bay';
-        $this->assertEquals($expectedUrl, $url);
+        $this->assertSame($expectedUrl, $url);
     }
 }

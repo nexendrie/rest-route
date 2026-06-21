@@ -1,7 +1,13 @@
 /vendor/*
 /composer.lock
 /.idea/
-/.phpunit.result.cache
 /junit.xml
 /coverage.xml
 /phpstan.json
+
+# Errors in tests
+*.errors
+
+# Generated reports
+/coverage.*
+/junit.xml

@@ -6,6 +6,8 @@
     <config name="tab_width" value="4"/>
     <arg name="colors"/>
     <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/src/InvalidArgumentException.php</exclude-pattern>
+    <exclude-pattern>*/src/InvalidStateException.php</exclude-pattern>
     <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
     <rule ref="Generic.Classes.DuplicateClassName"/>
     <rule ref="Generic.CodeAnalysis">

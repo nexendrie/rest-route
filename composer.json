@@ -31,7 +31,7 @@
         "symfony/polyfill-php84": "^1.30"
     },
     "require-dev": {
-        "phpunit/phpunit": "^12.0",
+        "konecnyjakub/mytester": "^8.2 || ^9.0",
         "php-parallel-lint/php-parallel-lint": "^1.4",
         "php-parallel-lint/php-console-highlighter": "^1.0",
         "squizlabs/php_codesniffer": "^4.0",
@@ -42,5 +42,8 @@
         "branch-alias": {
             "dev-master": "5.2.x-dev"
         }
+    },
+    "config": {
+        "classmap-authoritative": true
     }
 }

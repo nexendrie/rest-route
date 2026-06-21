@@ -4,7 +4,6 @@
 /phpcs.xml          export-ignore
 /RELEASE_NOTES      export-ignore
 .editorconfig       export-ignore
-/phpunit.xml.dist   export-ignore
 /RELEASE_NOTES      export-ignore
 
 *.php               text eol=lf

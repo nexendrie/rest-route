@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace Nexendrie\RestRoute;
 
+use MyTester\Attributes\DataProvider;
+use MyTester\TestCase;
 use Nette\Http\UrlScript;
 use Nette\Http\Request;
-use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\TestCase;
 
 class ActionDetectorTest extends TestCase
 {
@@ -24,8 +24,8 @@ class ActionDetectorTest extends TestCase
 
         $parameters = $route->match($request);
 
-        $this->assertEquals('Foo', $parameters[RestRoute::KEY_PRESENTER]); // @phpstan-ignore offsetAccess.notFound
-        $this->assertEquals($action, $parameters[RestRoute::KEY_ACTION]); // @phpstan-ignore offsetAccess.notFound
+        $this->assertSame('Foo', $parameters[RestRoute::KEY_PRESENTER]); // @phpstan-ignore offsetAccess.notFound
+        $this->assertSame($action, $parameters[RestRoute::KEY_ACTION]); // @phpstan-ignore offsetAccess.notFound
     }
 
     /**
