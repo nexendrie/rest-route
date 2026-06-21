@@ -1,59 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="Rest Route" basedir="." default="test">
-    <target name="test">
+    <property name="phpcs_standard" value="phpcs.xml"/>
+    <import file="vendor/nexendrie/code-quality/build.xml"/>
+    <target name="install">
         <exec executable="composer" logoutput="true" passthru="true" checkreturn="true">
             <arg value="update"/>
             <arg value="--prefer-dist"/>
             <arg value="--no-progress"/>
             <arg value="--no-interaction"/>
         </exec>
-        <if>
-            <not>
-                <isset property="env.REPORTS"/>
-            </not>
-            <then>
-                <exec executable="vendor/bin/parallel-lint" logoutput="true" passthru="true" checkreturn="true">
-                    <arg path="src"/>
-                    <arg path="tests"/>
-                    <arg value="-e"/>
-                    <arg value="php"/>
-                    <arg value="--colors"/>
-                </exec>
-                <exec executable="vendor/bin/phpcs" logoutput="true" passthru="true" checkreturn="true">
-                    <arg value="src"/>
-                    <arg value="tests"/>
-                </exec>
-            </then>
-        </if>
-        <if>
-            <isset property="env.REPORTS"/>
-            <then>
-                <exec executable="vendor/bin/phpstan" logoutput="true" passthru="true" checkreturn="true">
-                    <arg line="analyze --error-format=gitlab | tee phpstan.json"/>
-                </exec>
-            </then>
-            <else>
-                <exec executable="vendor/bin/phpstan" logoutput="true" passthru="true" checkreturn="true">
-                    <arg value="analyze"/>
-                </exec>
-            </else>
-        </if>
-        <if>
-            <isset property="env.REPORTS"/>
-            <then>
-                <exec executable="vendor/bin/mytester" logoutput="true" passthru="true" checkreturn="true">
-                    <arg value="--colors"/>
-                    <arg value="--results"/>
-                    <arg value="junit"/>
-                    <arg value="--coverage"/>
-                    <arg value="cobertura"/>
-                </exec>
-            </then>
-            <else>
-                <exec executable="vendor/bin/mytester" logoutput="true" passthru="true" checkreturn="true">
-                    <arg value="--colors"/>
-                </exec>
-            </else>
-        </if>
     </target>
+    <target name="test" depends="install,lint,cs,phpstan,tests"/>
 </project>
