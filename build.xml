@@ -2,13 +2,5 @@
 <project name="Rest Route" basedir="." default="test">
     <property name="phpcs_standard" value="phpcs.xml"/>
     <import file="vendor/nexendrie/code-quality/build.xml"/>
-    <target name="install">
-        <exec executable="composer" logoutput="true" passthru="true" checkreturn="true">
-            <arg value="update"/>
-            <arg value="--prefer-dist"/>
-            <arg value="--no-progress"/>
-            <arg value="--no-interaction"/>
-        </exec>
-    </target>
-    <target name="test" depends="install,lint,cs,phpstan,tests"/>
+    <target name="test" depends="lint,cs,phpstan,tests"/>
 </project>

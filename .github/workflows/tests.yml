@@ -23,4 +23,5 @@ jobs:
                   php-version: ${{ matrix.php }}
                   tools: composer, phing
                   coverage: pcov
+            - run: composer update --prefer-dist --no-progress --no-interaction
             - run: phing test
